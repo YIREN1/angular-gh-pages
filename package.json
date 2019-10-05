@@ -1,0 +1,16 @@
+{
+  "name": "angular-gh-pages",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "deploy": "gh-pages -d public"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "homepage": "https://github.com/YIREN1/angular-gh-pages",
+  "dependencies": {
+    "gh-pages": "^2.1.1"
+  }
+}
