@@ -73,7 +73,7 @@ module.exports = "<p>chatbot works!</p>\n<nb-chat title=\"Conversation with a Bo
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<h1>\n  <!-- here we echo the title from the component -->\n  {{ dashBoardTitle }}\n</h1>\n<nb-tabset>\n  <nb-tab tabTitle=\"upload\" badgeText=\"99+\" badgeStatus=\"danger\">\n    <app-upload></app-upload>\n  </nb-tab>\n  <nb-tab\n    tabTitle=\"chatbot\"\n    badgeText=\"12\"\n    badgePosition=\"bottom right\"\n    badgeStatus=\"warning\"\n  >\n    <app-chatbot></app-chatbot>\n  </nb-tab>\n  <nb-tab\n    tabTitle=\"chat\"\n    badgeText=\"new\"\n    badgePosition=\"top right\"\n    badgeStatus=\"success\"\n  >\n  <a [routerLink]=\"[ '/channel', 5d67c349f6f8f916672031f4 ]\">name</a>\n    <!-- <app-chat></app-chat> -->\n  </nb-tab>\n  <nb-tab\n    tabTitle=\"video chat\"\n    badgeText=\"new\"\n    badgePosition=\"top right\"\n    badgeStatus=\"success\"\n  >\n    <app-videochat></app-videochat>\n  </nb-tab>\n</nb-tabset>\n"
+module.exports = "<h1>\n  <!-- here we echo the title from the component -->\n  {{ dashBoardTitle }}\n</h1>\n<nb-tabset>\n  <nb-tab tabTitle=\"upload\" badgeText=\"99+\" badgeStatus=\"danger\">\n    <app-upload></app-upload>\n  </nb-tab>\n  <nb-tab\n    tabTitle=\"chatbot\"\n    badgeText=\"12\"\n    badgePosition=\"bottom right\"\n    badgeStatus=\"warning\"\n  >\n    <app-chatbot></app-chatbot>\n  </nb-tab>\n  <nb-tab\n    tabTitle=\"chat\"\n    badgeText=\"new\"\n    badgePosition=\"top right\"\n    badgeStatus=\"success\"\n  >\n  <a [routerLink]=\"[ '/channel', '5d67c349f6f8f916672031f4' ]\">name</a>\n    <!-- <app-chat></app-chat> -->\n  </nb-tab>\n  <nb-tab\n    tabTitle=\"video chat\"\n    badgeText=\"new\"\n    badgePosition=\"top right\"\n    badgeStatus=\"success\"\n  >\n    <app-videochat></app-videochat>\n  </nb-tab>\n</nb-tabset>\n"
 
 /***/ }),
 
@@ -2248,16 +2248,19 @@ let UploadComponent = class UploadComponent {
         };
         // overide the onCompleteItem property of the uploader so we are
         // able to deal with the server response.
-        this.uploader.onCompleteItem = (item, response, status, headers) => {
+        this.uploader.onCompleteItem = (item, response, status, headers) => tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](this, void 0, void 0, function* () {
             console.log('ImageUpload:uploaded:', item, status, response);
-        };
+            const obj = yield JSON.parse(response);
+            console.log(obj);
+            console.log(obj.fileName);
+            this.ocrText = obj.text;
+            sweetalert2__WEBPACK_IMPORTED_MODULE_3___default.a.fire('Good job!', 'OCR running...', 'success');
+        });
         this.uploader.onErrorItem = (item, response, status, headers) => {
             console.log(response);
             sweetalert2__WEBPACK_IMPORTED_MODULE_3___default.a.fire('Oops...', 'Upload failed', 'error');
         };
         this.uploader.onSuccessItem = (item, response, status, headers) => {
-            console.log(response.text);
-            this.ocrText = response.text;
             sweetalert2__WEBPACK_IMPORTED_MODULE_3___default.a.fire('Good job!', 'Successfully uploaded!', 'success');
         };
     }
